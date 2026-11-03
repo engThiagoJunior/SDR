@@ -1,7 +1,7 @@
 module top_receptor_final (
     input wire clk_50M,
     input wire rst,
-    input wire envelope_out, 		// Saida do detector de envelope, amplificado
+    input wire envelope_out, 		// Saida do comparador (detector de envelope)
     
     output wire pino_pwm_dac     // Entrada Filtro Passa-Baixa
 );
@@ -27,7 +27,7 @@ module top_receptor_final (
         .rst (rst),
         .duty (byte_recebido), 			// O valor demodulado
         .pwm_out (pino_pwm_dac), 		// Sinal -> Entrada Filtro Passa-Baixa
-        .period_tick ()               	// Pino nn usado nessa etapa
+        .period_tick ()               	// Nao usado nesta etapa
     );
 
 endmodule 

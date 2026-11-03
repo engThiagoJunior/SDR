@@ -4,7 +4,7 @@ module ask4_modulador(
 	input wire [7:0] adc_data,	// Dados no mcp
 	input wire data_valid,   	// Sinal de termino da conversao
 	
-	output reg ask4_pwm_out		// Saida modulada em 4-AKS
+	output reg ask4_pwm_out		// Saida modulada em 4-ASK
 );
 
 // 1. RELÓGIO DE SÍMBOLOS (800 Baud)
@@ -54,12 +54,14 @@ module ask4_modulador(
 	reg [8:0] cnt_100k;
 	reg [8:0] duty;
 
+	// Niveis calibrados em bancada na saida do filtro passa-faixa.
+	// Os valores teoricos eram 11% (55) e 23% (115).
 	always @(*) begin
 		case(current_sym)
-			2'b00: duty = 9'd0;    // Nível 0: 0% do ciclo (Contagem 0)
-			2'b01: duty = 9'd35;   // Nível 1: 11% do ciclo (Contagem 55)
-			2'b10: duty = 9'd95;  // Nível 2: 23% do ciclo (Contagem 115)
-			2'b11: duty = 9'd250;  // Nível 3: 50% do ciclo (Contagem 250)
+			2'b00: duty = 9'd0;    // Nivel 0: 0% do ciclo
+			2'b01: duty = 9'd35;   // Nivel 1: 7% do ciclo
+			2'b10: duty = 9'd95;   // Nivel 2: 19% do ciclo
+			2'b11: duty = 9'd250;  // Nivel 3: 50% do ciclo
 			default: duty = 9'd0;
 		endcase
 	end
