@@ -12,3 +12,7 @@ greybox_tmp/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Saída dos scripts
+scripts/modulating_signal.png
+scripts/cos_lut.mif
