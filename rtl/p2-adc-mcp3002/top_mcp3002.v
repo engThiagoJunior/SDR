@@ -1,6 +1,6 @@
 module top_mcp3002(
-    input  wire clk,     // Clock 50 MHz da DE0
-    input  wire rst,     // Usaremos KEY0 como Reset (ativo baixo na DE0)
+    input  wire clk,     // Clock 50 MHz da DE10-Lite
+    input  wire rst,     // Usaremos KEY0 como Reset (ativo baixo na DE10-Lite)
     
     // Sinais do MCP3002
     output wire ADC_CS,       // CS do MCP3002
@@ -14,7 +14,6 @@ module top_mcp3002(
 );
 
     // Fios internos
-    wire clk_50M;
     wire clk_50k;
     wire clk_200Hz;
 

@@ -92,6 +92,8 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to detector_ampOp
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to pwm_bask_demodulacao
 set_location_assignment PIN_W6 -to pwm_bask_demodulacao
 set_location_assignment PIN_V5 -to detector_ampOp
+set_location_assignment PIN_C10 -to modo_4ask
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to modo_4ask
 set_global_assignment -name VERILOG_FILE ../rtl/p7-modulador-4ask/ask4_modulador.v
 set_global_assignment -name VERILOG_FILE ../rtl/p6-receptor-bask/bask_demodulator.v
 set_global_assignment -name VERILOG_FILE ../rtl/p6-receptor-bask/top_receptor_final.v

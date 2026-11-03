@@ -119,8 +119,10 @@ Código: [`rtl/p7-modulador-4ask`](rtl/p7-modulador-4ask/)
 
 1. Monte o circuito do [esquemático](hardware/esquematico-completo.png).
 2. Abra `quartus/PWM_MCP.qpf` no Quartus Prime Lite 18.1.
-3. Em [`rtl/top/PWM_MCP.v`](rtl/top/PWM_MCP.v), escolha a configuração. A versão atual ativa o modulador 4-ASK. Para testar a cadeia BASK completa, ative `bask_modulator` e `top_receptor_final` e desative `ask4_modulador`.
-4. Compile e grave na DE10-Lite.
+3. Compile e grave na DE10-Lite.
+4. Selecione a modulação na chave SW0: nível baixo para BASK e nível alto para 4-ASK.
+
+O receptor fica sempre ativo, mas só demodula BASK. Por isso, a cadeia completa deve ser testada com SW0 em nível baixo.
 
 A pinagem usada está em `quartus/PWM_MCP.qsf`:
 
@@ -128,6 +130,7 @@ A pinagem usada está em `quartus/PWM_MCP.qsf`:
 |---|---|---|---|
 | `clk` | Entrada | `PIN_P11` | Relógio de 50 MHz |
 | `rst` | Entrada | `PIN_B8` | Reset ativo em nível baixo |
+| `modo_4ask` | Entrada | `PIN_C10` | Chave SW0: seleciona BASK ou 4-ASK |
 | `ADC_CS` | Saída | `PIN_V10` | Seleção do MCP3002 |
 | `ADC_SCLK` | Saída | `PIN_W10` | Relógio SPI |
 | `ADC_DIN` | Saída | `PIN_V9` | Comando para o MCP3002 |
@@ -137,6 +140,21 @@ A pinagem usada está em `quartus/PWM_MCP.qsf`:
 | `pwm_bask_demodulacao` | Saída | `PIN_W6` | Sinal demodulado |
 | `detector_ampOp` | Entrada | `PIN_V5` | Saída do comparador |
 
+## Testes
+
+Os testes automatizados rodam com [Icarus Verilog](https://steveicarus.github.io/iverilog/):
+
+```bash
+./sim/run.sh
+```
+
+| Teste | O que verifica |
+|---|---|
+| `tb_dds_pwm` | Ciclo útil do DDS em relação a `m(t)` |
+| `tb_adc_bask` | Comando SPI, leitura do ADC e bytes recebidos pelo demodulador BASK em canal ideal |
+| `tb_ask4` | Ordem dos símbolos e ciclos úteis do 4-ASK |
+| `tb_top` | Seleção pela chave SW0 e caminho do receptor no módulo principal |
+
 ## Estrutura do repositório
 
 ```text
@@ -144,17 +162,16 @@ A pinagem usada está em `quartus/PWM_MCP.qsf`:
 ├── hardware/   # Esquemático e lista de componentes
 ├── quartus/    # Projeto e pinagem
 ├── rtl/        # Módulos Verilog, separados por etapa
-└── scripts/    # Geração da tabela do cosseno e gráfico de m(t)
+├── scripts/    # Geração da tabela do cosseno e gráfico de m(t)
+└── sim/        # Testbenches e modelos de simulação
 ```
 
 Para gerar a tabela novamente, execute [`scripts/generate_mif.ipynb`](scripts/generate_mif.ipynb) e copie `cos_lut.mif` para `rtl/p1-dds-pwm/`.
 
 ## Melhorias futuras
 
-- Adicionar sincronismo de quadro para o receptor funcionar sem compartilhar o reset com o transmissor.
-- Selecionar BASK ou 4-ASK por uma chave da placa, sem alterar o código.
+- Adicionar sincronismo de quadro para o receptor funcionar sem compartilhar o reset com o transmissor. A taxa de 1600 bit/s não deixa bits livres no quadro de 5 ms, então isso exige aumentar a taxa ou reduzir a amostragem.
 - Implementar um demodulador 4-ASK.
-- Adicionar testbenches automatizados.
 
 ## Autor
 

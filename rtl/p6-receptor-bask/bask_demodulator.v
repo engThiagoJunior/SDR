@@ -46,6 +46,8 @@ module bask_demodulator (
     end
 
     // MÁQUINA DE ESTADOS - 8 estados
+    // O protocolo nao tem marcador de inicio de quadro. O valor inicial 2
+    // alinha os bytes quando transmissor e receptor saem do mesmo reset.
     reg [3:0] bit_cnt = 2;
     reg [7:0] shift_reg;
 

@@ -16,3 +16,7 @@ greybox_tmp/
 # Saída dos scripts
 scripts/modulating_signal.png
 scripts/cos_lut.mif
+
+# Simulação
+*.vvp
+*.vcd
