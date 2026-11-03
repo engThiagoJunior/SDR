@@ -1,0 +1,14 @@
+# Quartus Prime
+db/
+incremental_db/
+output_files/
+simulation/
+greybox_tmp/
+*.qws
+*.rpt
+*.summary
+*.smsg
+*.bak
+
+# Jupyter
+.ipynb_checkpoints/
