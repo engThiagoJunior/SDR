@@ -15,4 +15,4 @@
 | Comparador | RV1 | Potenciômetro de 10 kΩ | Ajuste do limiar |
 | Filtro passa-baixa de saída | R4, C7 | 1 kΩ e 10 µF | Corte em cerca de 16 Hz |
 
-Os valores acima seguem os cálculos do [relatório final](../docs/relatorio-final.pdf). O [esquemático](esquematico-completo.png) mostra R1 = 1 kΩ e C7 = 1 µF.
+Os valores acima seguem os cálculos do [relatório final](../docs/relatorio-final.pdf).
